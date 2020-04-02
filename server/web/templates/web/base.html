@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Covid Data - Data to fight Coronavirus</title>
+
+    {% load static %}
+
+    <link rel="shortcut icon" href="{%  static 'web/images/logo.png' %}">
+    <link href='https://fonts.googleapis.com/css?family=Lato:light,normal,bold|Raleway:light,normal,bold|Exo+2:light,normal,bold|Quicksand' rel='stylesheet' type="text/css">
+    <!-- <//<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet"> -->
+    {% block links %}{% endblock %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_javascript jquery='full' %}
+
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet"> -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'web/css/style.css' %}" />
+</head>
+
+<body>
+ <!-- Desktop navbar  bg-dark navbar-dark -->
+ {% include "web/navbar.html"%}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block content %}
+{% endblock %}
+
+<div class=footer style="margin-top:20px;">
+    {% include 'web/footer.html'%}
+</div>
+
+{%block extrascripts%}
+{%endblock%}
+</body>

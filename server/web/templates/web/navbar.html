@@ -1,0 +1,71 @@
+{% load account socialaccount %}
+{% load static %}
+{% load i18n %}
+<nav class="navbar navbar-dark bg-danger">
+
+  {% if request.user.is_authenticated %}
+  <ul class="nav justify-content-between" style="width: 100%;">
+    <li class="nav-item">
+      
+        <a class="navbar-brand" href="/">
+          <div class="row"> 
+          <img src="{% static 'web/images/logo-b.png'%}" width="35" height="35" alt="">
+          <span class="d-none d-sm-block text-brand"> Covid Data</span>
+          </div>
+        </a>
+      
+    </li>
+    <li class="nav-item">
+        <form method="post" action="{% url 'account_logout'%}">
+          {% csrf_token %}
+          <button type="submit" class="invisible-btn" style="padding-top:5px;">
+            <img src="{% static 'web/images/logout.png'%}" width="30" height="30" class="d-inline-block" alt="Deconnexion">
+          </button>
+        </form>
+    </li>
+  </ul>
+  {% else %}
+  <ul class="nav justify-content-center" style="width: 100%;">
+    <li class="nav-item" style="text-align: center;" >
+        <a class="navbar-brand" href="/">
+          <img src="{% static 'web/images/logo-b.png'%}" width="30" height="30" alt="">
+        </a>
+    </li>
+  </ul>
+
+
+  {% endif %}
+
+
+</nav>
+
+{% if request.user.is_authenticated %}
+
+<nav class="navbar navbar-light bg-light">
+    <ul class="nav justify-content-between" style="width: 100%;">
+    {% if profile is not None and profile.is_logistic %}
+    <li class="nav-item">
+      <a class="navbar-brand" href="/stock/">
+        <img src="{% static 'web/images/hospital.png'%}" width="40" height="40" alt="">
+        <span class="site-subtitle-nav">{% trans "Données de l'établissement" %}</span></a>
+    </li>
+    <li class="nav-item">
+      <img src="{% static 'web/images/world.png'%}" width="40" height="40" alt="">
+      <a class="navbar-brand" href="/visu/"> <span class="site-subtitle-nav">{% trans "Accès aux données nationales" %}</span></a>
+    </li>
+
+
+    {% endif %}
+    {% if profile is not None and profile.is_medical %}
+    <li class="nav-item">
+      <a class="navbar-brand" href="/"> <span class="site-subtitle-nav">{% trans "données patients" %}</span></a>
+    </li>
+    {% endif %}
+    {% if profile is None or profile.is_medical %}
+    <li class="nav-item">
+      <a class="navbar-brand" href="/opendata/"><span class="site-subtitle-nav">{% trans "données libre accès" %}</span></a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}

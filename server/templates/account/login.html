@@ -1,0 +1,44 @@
+{% extends "web/base.html" %}
+{% load account socialaccount %}
+{% load static%}
+{% load bootstrap4 %}
+{% load maj_extras %}
+{% load i18n %}
+
+{% block content %}
+
+
+<div class=container fluid>
+
+  {% include "web/covid-data.html" %}
+  <div class="row justify-content-center" style="margin-top: 25px; margin-bottom: 50px;">
+    <div class="d-md-block col-md-7">
+      <h2>{% trans "Authentifiez-vous pour accéder au service" %}</h2>
+      <p>{% trans "Si votre hopital ne possède pas de compte, utilisez le bouton ci-dessous" %}</p>
+      <a class="btn btn-info" href="/registration/"style="width:100%;" type="submit">{% trans "Faire une demande de compte" %}</a>
+    </div>
+
+    <div class="col-md-5 card">
+      {{ auth_error }}
+      <div class="card-body">
+        <h1 class="card-title">{% trans "Identification" %}</h1>
+        <form class="login card-text" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+
+          {% if redirect_field_value %}
+          <div class="form-group">
+            <input id="{{redirect_field_name}}"type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          </div>
+          {% endif %}
+          <button class="btn btn-success btn-lg" style="width:100%;" type="submit">{% trans "Connexion" %}</button>
+          <span style="margin:1%"></span>
+          <a class="btn btn-outline-danger btn-sm" style="width:100%" href="{% url 'account_reset_password' %}">{% trans "Mot de passe oublié ?" %}</a>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

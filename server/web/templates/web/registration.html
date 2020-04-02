@@ -1,0 +1,46 @@
+{% extends "web/base.html" %}
+{% load account socialaccount %}
+{% load static%}
+{% load bootstrap4 %}
+{% load maj_extras %}
+{% load i18n %}
+
+{% block content %}
+
+
+<div class=container fluid>
+    <div class="row justify-content-center" style="margin-top: 50px; margin-bottom: 20px;">
+      <div class="d-md-block col-md-7">
+        <div class="d-flex justify-content-start">
+            <img class="d-flex" src="{% static 'web/images/logo.png'%}" width="75" height="75" alt="">
+            <div class="site-brand align-self-center"> Covid Data </div>
+        </div>
+        <h4 class="site-title">{% trans "Utilisons aussi les données pour combattre le coronavirus" %}</h4>
+      </div>
+      <div class="col-md-5">
+      </div>
+    </div>
+
+    <div class="row justify-content-center" style="margin-top: 25px; margin-bottom: 50px;">
+     <div class="col-md-5 card">
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="form-actions">
+          <button class="btn btn-success" style="width:100%;" type="submit">{% trans "S'inscrire" %}</button>
+        </div>
+      </form> 
+     </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 50px;">
+      <h2>{% trans "Dernières mises à jour" %}</h2>
+      {% autoescape off %}
+          {% last_maj %}
+      {% endautoescape %}
+    </div>
+
+</div>
+
+{% endblock %}

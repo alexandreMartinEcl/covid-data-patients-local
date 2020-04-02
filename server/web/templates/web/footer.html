@@ -1,0 +1,22 @@
+{%load static%}
+{% load i18n %} 
+
+<div class="col justify-content-center">
+  <h2 class="footer-title">{% trans "Contact" %}</h2>
+    <p> {% trans "Vous pouvez nous écrire à " %}<a class="footer-link" href="mailto: contact@covid-data.fr">contact@covid-data.fr</a></p>
+    <h2 class="footer-title">{% trans "Remerciements " %}</h2>
+    <p>{% trans "dévéloppé par " %}</p>
+    <p><a href="https://magic-lemp.com">
+        <img src="{% static 'web/images/magic-lemp-brand.png'%}" alt="Magic LEMP" height="50" />
+    </a></p>
+    <p>{% trans "développeur frontend " %}<a class="footer-link" href="https://perso.crans.org/gmastio/">Guillaume Mastio</a></p>
+    <p>{% trans "Tout nous remerciements aux acteurs ayant contribué bénévolement au projet" %}</p>
+    <p>Lior Perez</p>
+    <p>{% trans "la communauté Slack " %}<a class="footer-link" href="https://dataagainstcovid-19.slack.com">Data Againt Covid19</a></p>
+    <p><a class="footer-link" href="https://www.cosium.com/en/home-en/">Cosium</a></p>
+
+    <h2 class="footer-title">{% trans "Mention RGPD" %}</h2>
+    <p class="footer-mention">
+    {% trans "Nous ne collectons que les données ayant un rapport direct et strict avec l’utilisation de cette plateforme, dans le but unique d’épauler le système de santé face à la crise du Covid-19. Nous ne revendons ni n’exploitons ces données à d’autres fins que le fonctionnement de cette plateforme, ni maintenant ni à aucun moment dans le futur.  Aucun mail autre que ceux directement relatifs au fonctionnement de la plateforme ne sera envoyé aux utilisateurs de celle-ci. Si vous avez des questions relatives au respect du RGPD, vous pouvez nous écrire à " %}<a class="footer-link" href="mailto: gdpr@covid-data.fr">gdpr@covid-data.fr</a>
+    </p>
+</div>

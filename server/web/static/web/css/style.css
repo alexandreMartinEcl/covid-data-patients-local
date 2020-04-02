@@ -1,0 +1,107 @@
+ :root {
+    --black:#363636;
+    --grey:#585858;
+    --greybg:rgba(25,25,25,0.5);
+    --purple:rgba(169,0,220,0.45);
+    --blue: #495891;
+    --white:#ffffff;
+    --titlefont: 'Lato';
+    --subtitlefont: 'Exo 2';
+    --plainfont: 'Raleway';
+    --plainfont2: inherit;
+}
+
+.btn-form {
+    width: 100%;
+}
+
+.body-title {
+    font-family: var(--titlefont);
+}
+.footer {
+    background-color: var(--black);
+    color: var(--white);
+    text-align: center;
+    font-family: var(--plainfont);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.footer-title {
+    font-family: var(--titlefont);
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-top: 40px;
+}
+
+.footer-link {
+    color: var(--white);
+    font-weight: bold;
+}
+
+.footer-link:hover {
+    color: var(--white);
+}
+
+.footer-mention {
+    font-size: 13px;
+    text-align: justify;
+}
+
+.text-brand {
+    /*font-weight: bold;*/
+    padding-left: 5px;
+}
+
+.link-activity {
+    font-family: var(--subtitlefont);
+    font-weight: light;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: var(--white);
+}
+
+.invisible-btn {
+    box-shadow: none;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.site-brand {
+    font-family: var(--titlefont);
+    font-size: 60px;
+    padding-left: 5px;
+}
+
+.site-title {
+    font-family: var(--plainfont);
+}
+
+.site-subtitle-nav {
+    font-family: var(--titlefont);
+    font-weight: light;
+    text-transform: uppercase;
+    font-size: 15px;
+
+}
+
+.site-subtitle-nav:hover {
+    text-decoration: underline;
+}
+
+.tag-title {
+    font-family: var(--titlefont);
+    font-size: 27px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.tag-text {
+    font-family: var(--plainfont2);
+    font-size: 17px;
+    margin-bottom: 5px;
+}

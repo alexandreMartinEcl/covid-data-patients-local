@@ -1,0 +1,34 @@
+{% extends "web/base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+{%load static%}
+
+{% csrf_token %}
+
+{% block content %}
+
+<div class="container">
+
+    {% if request.user.is_authenticated %}
+    <div class="card" style="margin-bottom: 50px;">
+        <div class="card-body">
+          <h5 class="card-title">{% trans "Partagez vos recommandations" %}</h5>
+        <hr></hr>
+        <p class="card-text">{% trans "Utilisez le lien ci-dessous pour partager en libre accès des documents tels que des recommandations, papiers,..." %}</p>
+          <p class="card-text" style="text-align: right;">
+          <a class="btn btn-dark" href="/opendata/add/" role="button">{% trans "Ajouter un document" %}</a>
+          </p>
+      </div>
+    </div>
+    {% endif %}
+
+    <h1>{% trans "Open Data" %}</h1>
+    <p>{% trans "Base documentaire à l’attention des professionnels de santé rassemblant les recommandations des sociétés savantes et les guides méthodologiques des autorités de santé." %}</p>
+    <p>{% trans "Choisissez une spécialité et accédez aux derniers rapports et recommandations" %}</p> 
+</div>
+
+<noscript>{% trans "Vous devez activer JavaScript pour que ce site fonctionne" %}. </noscript>
+<div id="root" class="container"></div>
+<script src="{% static 'web/js/biblio.chunk.js' %}"></script>
+{% include "web/chunk.html" %}
+{% endblock %}

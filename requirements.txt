@@ -1,0 +1,11 @@
+Django
+djangorestframework
+django-bootstrap4
+django-allauth
+django-cors-headers
+django-dotenv
+xlrd
+pandas
+django-protected-media
+Pillow
+unidecode

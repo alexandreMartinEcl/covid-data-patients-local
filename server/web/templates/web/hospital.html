@@ -1,0 +1,8 @@
+{% load i18n %}
+<div class="card" style="margin-top: 10px;">
+    <div class="card-body card-header">
+        <h4 class="tag-title">{% trans "Établissement :" %} {{hospital.full_name}} </h4>
+        <p class="tag-text">{% trans "Localisation :" %} {{hospital.postcode}} {{hospital.country}}</p>
+        <p class="tag-text">{% trans "Contact :" %} {{hospital.phone_bed_manager}}</p>
+    </div>
+</div>
