@@ -40,12 +40,14 @@ from django.urls import path, include
 from . import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/", include('patients.urls')),
+    path("api/", include('beds.urls')),
+    path("api/users/", include('users.urls')),
+    path("api/patients/", include('patients.urls')),
     path(r'accounts/', include('allauth.urls')),
     # path(r'protected/', include('protected_media.urls')),
     path(r"", include('web.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
-    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
+    static(settings.STATICFILES_DIRS[0], document_root=settings.STATICFILES_DIRS[0])

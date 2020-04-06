@@ -27,9 +27,10 @@ from patients import views
 
 app_name = "patients"
 
-
 router = DefaultRouter()
-router.register(r'patients', views.PatientViewset, basename="patients")
+router.register(r'infos', views.PatientViewset, basename="patients")
+
+router.register(r'status_measures', views.StatusMeasureViewset, basename="statusmeasures")
 router.register(r'ventilations', views.VentilationViewset)
 
 urlpatterns = [

@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     "patients",
     "maj",
     "web",
+    "beds",
     'bootstrap4'
 ]
 
@@ -90,14 +91,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -106,13 +105,12 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
+
 # Deasactivate user auto creation
-ACCOUNT_ADAPTER = 'server.account_adapter.NoNewUsersAccountAdapter'
+# ACCOUNT_ADAPTER = 'server.account_adapter.NoNewUsersAccountAdapter'
+ACCOUNT_ADAPTER = 'users.adapter.AuthAdapter'
 SOCIALACCOUNT_PROVIDERS = {}
-
-# CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOW_CREDENTIALS = True
-
+LOGIN_REDIRECT_URL = "http://localhost:8000"
 
 if SERVER_VERSION == "dev":
     CORS_ORIGIN_WHITELIST = ["http://localhost:3000",
@@ -139,7 +137,8 @@ elif SERVER_VERSION == "prod":
 
 
 CORS_ALLOW_HEADERS = [
-    'access-control-allow-origin'
+    'access-control-allow-origin',
+    'content-type'
 ]
 
 REST_FRAMEWORK = {
@@ -147,9 +146,18 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100,
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
-    )
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'users.AuthMiddleware.FreeAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAdminUser',
+    # ),
 }
 
+AUTH_SERVER_URL = os.getenv("AUTH_SERVER_URL")
+AUTH_SERVER_TOKEN = os.getenv("AUTH_SERVER_TOKEN")
 
 ROOT_URLCONF = 'server.urls'
 
@@ -251,6 +259,11 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+REACT_APP_DIR = os.path.join(BASE_DIR, 'web', 'templates', 'beds_frontend')
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
+]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

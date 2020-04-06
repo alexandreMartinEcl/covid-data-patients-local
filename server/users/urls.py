@@ -22,15 +22,18 @@ SOFTWARE.
 
 
 from django.urls import path, include
-# from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter
 from users import views
 
 app_name = "users"
 
-# router = DefaultRouter()
+router = DefaultRouter()
+router.register(r"", views.UserProfileViewset, basename="userprofile")
+
 # router.register(r"hospitals", views.HospitalView, basename="hospitals")
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('hospitals/', views.HospitalView.as_view(), name="hospitals"),
     path("form/", views.get_hospital_form, name="hospital_form"),
 ]
