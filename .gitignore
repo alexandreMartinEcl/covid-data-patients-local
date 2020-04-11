@@ -5,12 +5,9 @@ db.sqlite3
 server/.env
 
 venv/
-server/beds/migrations/0*
-server/patients/migrations/0*
-server/users/migrations/0*
-server/web/migrations/0*
-server/web/templates/beds_frontend/build/*
-server/maj/migrations/0*
+
+server/web/templates/beds_frontend/*
+
 
 server/output.sql
 
