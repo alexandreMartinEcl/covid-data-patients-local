@@ -29,7 +29,7 @@ from patients.permissions import AuthenticatedAndSafeOrOwnerModification, \
 from server import paginations
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from users.models import get_user_hospital, get_user_profile
+from users.models import get_user_profile
 
 
 class PatientViewset(viewsets.ModelViewSet):

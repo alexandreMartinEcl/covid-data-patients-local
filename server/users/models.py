@@ -20,7 +20,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied

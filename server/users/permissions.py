@@ -20,9 +20,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from rest_framework import permissions
-from users.models import get_user_hospital, get_user_profile, is_valid_hospital
+from users.models import get_user_profile
 
 
 class AuthenticatedAndSafeOrOwnerModification(permissions.BasePermission):

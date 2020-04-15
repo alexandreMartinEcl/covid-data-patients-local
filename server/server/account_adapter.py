@@ -20,9 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from allauth.account.adapter import DefaultAccountAdapter
-import django.contrib.auth.middleware
 
 
 class NoNewUsersAccountAdapter(DefaultAccountAdapter):

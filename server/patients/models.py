@@ -19,10 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+
 import json
 
 from django.db import models
-import hashlib
 import django.db.models.fields as fields
 from django.utils import timezone
 from django.utils.datetime_safe import date
@@ -31,9 +31,6 @@ from utils import get_field_schema
 from django.utils.translation import gettext_lazy as _
 from django.db.models.deletion import CASCADE, SET_NULL, PROTECT
 from beds.models import UnitStay
-
-
-# from protected_media.models import ProtectedImageField
 
 
 def get_patient_with_stay(stay: UnitStay):

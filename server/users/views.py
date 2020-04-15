@@ -27,7 +27,6 @@ from users.serializers import HospitalSerializer, UserProfileSerializer
 from users.permissions import MedLogPolPermission, AuthenticatedAndSafeOrOwnerModification
 from server import paginations
 from rest_framework.response import Response
-from rest_framework import status
 
 
 class UserProfileViewset(viewsets.ModelViewSet):
