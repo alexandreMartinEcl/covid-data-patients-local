@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'psycopg2',
     "users",
     "patients",
     "maj",
@@ -189,8 +190,14 @@ SITE_ID = 1
 if SERVER_VERSION == "dev":
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            # 'ENGINE': 'django.db.backends.sqlite3',
+            # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mydb',
+            'USER': 'admin',
+            'PASSWORD': 'admin',
+            'HOST': 'localhost',
+            'PORT': '',
         }
     }
 
@@ -198,11 +205,17 @@ elif SERVER_VERSION == "prod":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.getenv('DTB_NAME'),
-            'USER': os.getenv('DTB_USER'),
-            'PASSWORD': os.getenv('DTB_PASSWORD'),
-            'HOST': os.getenv('DTB_HOST'),
-            'PORT': os.getenv('DTB_PORT'),
+            'NAME': 'mydb',
+            'USER': 'admin',
+            'PASSWORD': 'admin',
+            'HOST': 'localhost',
+            'PORT': '',
+            # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            # 'NAME': os.getenv('DTB_NAME'),
+            # 'USER': os.getenv('DTB_USER'),
+            # 'PASSWORD': os.getenv('DTB_PASSWORD'),
+            # 'HOST': os.getenv('DTB_HOST'),
+            # 'PORT': os.getenv('DTB_PORT'),
         }
     }
 

@@ -46,7 +46,7 @@ SOFTWARE.
     color: var(--white);
     text-align: center;
     font-family: var(--plainfont);
-    padding-top: 10px;
+    padding-top: 1px;
     padding-bottom: 10px;
 }
 

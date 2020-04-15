@@ -125,7 +125,7 @@ class Hospital(models.Model):
     country = models.CharField(max_length=50, default="FRANCE")
 
     def __str__(self):
-        return self.full_name
+        return f"Hôpital {self.full_name}"
 
     @classmethod
     def get_react_description(cls):

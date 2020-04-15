@@ -33,17 +33,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    if request.user.is_authenticated:
-        profile = get_user_profile(request.user)
-        if profile is not None:
-            # if profile.is_medical:
-            return patient(request)
-            # elif profile.is_logistic:
-            #     return stock(request)
-            # elif profile.is_politic:
-            #     return export_csv(request)
-
-    return render(request, "web/index.html", {})
+    return redirect("/beds")
 
 
 @login_required
@@ -69,8 +59,7 @@ def beds(request):
     js = {"main": os.getenv("JS_MAIN_PATIENT"),
           "2": os.getenv("JS_2_PATIENT")}
     # hospital = get_user_hospital(request.user)
-    # return render(request, os.path.join(settings.REACT_APP_DIR, 'build', 'index.html'),
-    return render(request, 'web/beds.html',#beds_frontend/build/index.html',
+    return render(request, 'web/beds.html',
                   {"link": link,
                    "js": js,
                    # "hospital": hospital,

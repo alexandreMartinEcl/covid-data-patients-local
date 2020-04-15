@@ -20,15 +20,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from django.urls import path
+from django.urls import path, re_path
 from web.views import index, patient, beds
 
 app_name = "web"
 
 
 urlpatterns = [
-    # path("", index, name="index"),
-    path("", beds, name="beds"),
-    path("patients", patient, name="patient"),
-    # path("beds", beds, name="beds")
+    path("", index, name="index"),
+    # path("", beds, name="beds"),
+    # path("patients", patient, name="patient"),
+    path("beds", beds, name="beds"),
+    re_path(r'^patient/.*$', beds, name="beds"),
 ]

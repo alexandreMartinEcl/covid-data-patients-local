@@ -18,7 +18,7 @@ class ReanimationService(models.Model):
         unique_together = [["name", "hospital"]]
 
     def __str__(self):
-        return f"Rénimation {self.name} (Hôpital {self.hospital})"
+        return f"Réanimation {self.name} - {self.hospital}"
 
 
 def get_units(rea: ReanimationService):
@@ -38,7 +38,7 @@ class Unit(models.Model):
         unique_together = [["name", "reanimation_service"]]
 
     def __str__(self):
-        return f"Unité {self.name} (Service de réanimation {self.reanimation_service})"
+        return f"Unité {self.name} ({self.reanimation_service})"
 
 
 def get_beds(unit: Unit):
@@ -64,7 +64,7 @@ class Bed(models.Model):
         unique_together = [["unit", "unit_index"]]
 
     def __str__(self):
-        return f"{self.id} - Lit {self.unit_index} - Unité {self.unit} - Réanimation {self.unit.reanimation_service} " \
+        return f"{self.id} - Lit {self.unit_index} - {self.unit} " \
                f"{'(' + self.current_stay.patient.NIP_id + ')' if self.current_stay else ''}"
 
 

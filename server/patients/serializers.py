@@ -54,17 +54,18 @@ class ReducedUserSerializer(serializers.ModelSerializer):
 class ReanimationServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReanimationService
-        fields = "__all__"
+        exclude = ["access_code"]
 
 
 class PatientSerializer(serializers.ModelSerializer):
     bed = serializers.CharField(allow_null=True, allow_blank=True, default=None, write_only=True)
+    stay_start_date = serializers.DateField(allow_null=True, write_only=True)
     current_unit_stay = ReducedUnitStaySerializer(read_only=True)
     status_measures = serializers.ListSerializer(child=StatusMeasureSerializer(), read_only=True)
     unit_stays = serializers.ListSerializer(child=ReducedUnitStaySerializer(), read_only=True)
     current_reanimation_service = ReanimationServiceSerializer(read_only=True)
-    antecedents = serializers.JSONField(allow_null=True, default='{}')
-    # antecedents = serializers.JSONField(encoder=json.JSONEncoder(), allow_null=True, default='{}')
+    antecedents = serializers.JSONField(allow_null=True, default='{"NonIndique": ""}')
+    allergies = serializers.JSONField(allow_null=True, default='["Non indiqué"]')
 
     class Meta:
         model = Patient
@@ -83,6 +84,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
             assigned_caregivers = validated_data.pop("assigned_caregivers", None)
             bed_id = validated_data.pop("bed", None)
+            start_date = validated_data.pop("stay_start_date", None)
             validated_data.pop("stay_id", None)
 
             patient = Patient(**validated_data)
@@ -106,7 +108,7 @@ class PatientSerializer(serializers.ModelSerializer):
                 patient.current_reanimation_service = rea
                 patient.save()
                 patient.assigned_caregivers.set(assigned_caregivers)
-                UnitStay.objects.create(created_by=user, patient=patient, bed=bed)
+                UnitStay.objects.create(created_by=user, patient=patient, bed=bed, start_date=start_date)
 
             else:
                 patient.save()
@@ -142,6 +144,8 @@ class BasicInfoPatientSerializer(PatientSerializer):
     status_measures = None
     unit_stays = None
     antecedents = None
+    allergies = None
+    current_reanimation_service = ReanimationServiceSerializer()
 
     class Meta:
         model = Patient
@@ -193,8 +197,8 @@ class StatusMeasureSerializer(serializers.ModelSerializer):
             .first()
 
         if matching_measure:
-            matching_measure["value"] = validated_data["value"]
-            matching_measure["created_by"] = user
+            matching_measure.value = validated_data["value"]
+            matching_measure.created_by = user
             matching_measure.save()
             return matching_measure
         else:

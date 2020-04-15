@@ -72,8 +72,8 @@ class Patient(models.Model):
     detection_ERpremierMardi = models.BooleanField(default=False)
     detection_ERsecondMardi = models.BooleanField(default=False)
 
-    antecedents = models.TextField(blank=True, null=True, help_text='json {"Cardio": "note"}̀')
-    allergies = models.TextField(blank=True, null=True, help_text='["pollen"]')
+    antecedents = models.TextField(blank=True, null=True, default='{"NonIndique": ""}', help_text='json {"Cardio": "note"}̀')
+    allergies = models.TextField(blank=True, null=True, default='["Non indiqué"]', help_text='["pollen"]')
     severity = models.IntegerField(choices=[(0, 'A risque'), (1, 'Instable'), (2, 'Stable')], default=2)
 
     recent_disease_history = models.TextField(blank=True, null=False, default='')
