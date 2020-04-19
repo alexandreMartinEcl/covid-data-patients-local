@@ -1,4 +1,4 @@
-<!--
+"""
 Copyright (c) 2020 Magic LEMP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,34 +18,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
--->
+"""
+
+from allauth.account.adapter import DefaultAccountAdapter
+
+from users.auth import IDServer
+from users.models import get_or_create_user
 
 
-{% extends "web/base.html" %}
-{% load bootstrap4 %}
-{% load i18n %} 
-{%load static%}
-{% block links%}
-<link href="{% static 'web/css/main.'|add:link.main|add:'.chunk.css'%}" rel="stylesheet">
-<link href="{% static 'web/css/2.'|add:link.2|add:'.chunk.css'%}" rel="stylesheet">
-{% endblock %}
+class AuthAdapter(DefaultAccountAdapter):
 
-{% csrf_token %}
-
-{% block content %}
-
-<div class="container">
-
-    <h2 class="body-title" style="margin-top:20px; margin-bottom: 30px;">
-    {% trans "Ressources détaillées de l'établissement" %}</h2>
-
-    {% include "web/hospital.html" %}
-
-    <p style="margin-top:20px;"> {% trans "Visualiser ou mettez à jour l'état des ressources humaines, matérielles ou le nombre de lits de l'établissement" %}</p>
-
-</div>
-<div id="root" class="container-fluid"></div>
-{% include "web/noscript.html" %}
-<script src="{% static 'web/js/stock.chunk.js' %}"></script>
-{% include "web/chunk.html" %}
-{% endblock %}
+    def authenticate(self, request, username, password):
+        try:
+            tokens = IDServer.check_ids(username=username, password=password)
+        except ValueError:
+            return None
+        user = get_or_create_user(tokens)
+        return user

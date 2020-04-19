@@ -22,7 +22,7 @@ SOFTWARE.
 
 
 from django.contrib import admin
-from patients.models import Patient, Ventilation
+from patients.models import Patient, Ventilation, StatusMeasure
 
 
 class PatientAdmin(admin.ModelAdmin):
@@ -33,5 +33,10 @@ class VentilationAdmin(admin.ModelAdmin):
     pass
 
 
+class StatusMeasureAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Patient, PatientAdmin)
 admin.site.register(Ventilation, VentilationAdmin)
+admin.site.register(StatusMeasure, StatusMeasureAdmin)

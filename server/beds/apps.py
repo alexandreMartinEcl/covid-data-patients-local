@@ -1,4 +1,4 @@
-<!--
+"""
 Copyright (c) 2020 Magic LEMP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,36 +18,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
--->
+"""
+
+from django.apps import AppConfig
 
 
-{% extends "web/base.html" %}
-
-{% load static%}
-{% load bootstrap4 %}
-{% load i18n %}
-
-{% block content %}
-
-<div class=container fluid>
-
-  <h2>{% trans "Ajout de nouvelles recommandations" %}</h2>
-
-<div class="card-group">
-    {% for form in forms %}
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title"> {{form.title}} </h5>
-       <form class="login card-text" method="POST" action="/opendata/add/{{form.obj}}/" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form.form %}
-
-        <button class="btn btn-info" style="width:100%;" type="submit">{% trans "Ajouter" %}</button>
-    </form>
-    </div>
-  </div>
-  {% endfor%}
-</div>
-
-
-{% endblock %}
+class BedsConfig(AppConfig):
+    name = 'beds'

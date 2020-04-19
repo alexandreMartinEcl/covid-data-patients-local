@@ -1,4 +1,4 @@
-"""
+<!--
 Copyright (c) 2020 Magic LEMP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,39 +18,23 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-"""
+-->
 
-from django.forms import ModelForm
-from patients.models import Patient, Ventilation
+{% extends "web/base.html" %}
+{% load bootstrap4 %}
 
+{%load static %}
+{% block links%}
+<link href="{% static 'css/main.'|add:link.main|add:'.chunk.css'%}" rel="stylesheet">
+<link href="{% static 'css/2.'|add:link.2|add:'.chunk.css'%}" rel="stylesheet">
+{% endblock %}
 
-class PatientForm(ModelForm):
-    class Meta:
-        model = Patient
-        # fields = "__all__"
-        exclude = ['hospital']
-        labels = {
-            'age': ('Age'),
-        }
-        help_texts = {
-            'age': ('En années.'),
-        }
-        # error_messages = {
-        #     'name': {
-        #         'max_length': ("This writer's name is too long."),
-        #     },
-        # }
+{% csrf_token %}
 
-    def validate(self, data):
-        validated_data = super(PatientForm).validate(data)
-        validated_data['inclusion_code'] = Patient.hash(
-            validated_data['inclusion_code'])
-        validated_data['inclusion_nb'] = Patient.hash(
-            validated_data['inclusion_nb'])
-        return validated_data
-
-
-class VentilationForm(ModelForm):
-    class Meta:
-        model = Ventilation
-        fields = "__all__"
+{% block content %}
+{% include "beds_frontend/build/index.html" %}
+<div id="root" class="container-fluid"></div>
+{% include "web/noscript.html" %}
+<script src="{% static 'web/js/patient.chunk.js' %}"></script>
+{% include "web/chunk.html" %}
+{% endblock %}

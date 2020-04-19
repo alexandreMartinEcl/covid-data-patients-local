@@ -1,4 +1,4 @@
-<!--
+"""
 Copyright (c) 2020 Magic LEMP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,13 +18,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
--->
+"""
 
-{% load i18n %}
-<div class="card" style="margin-top: 10px;">
-    <div class="card-body card-header">
-        <h4 class="tag-title">{% trans "Établissement :" %} {{hospital.full_name}} </h4>
-        <p class="tag-text">{% trans "Localisation :" %} {{hospital.postcode}} {{hospital.country}}</p>
-        <p class="tag-text">{% trans "Contact :" %} {{hospital.phone_bed_manager}}</p>
-    </div>
-</div>
+from django.contrib import admin
+from beds.models import ReanimationService, UnitStay, Unit, Bed
+
+
+class ReanimationServiceAdmin(admin.ModelAdmin):
+    pass
+
+
+class UnitStayAdmin(admin.ModelAdmin):
+    pass
+
+
+class UnitAdmin(admin.ModelAdmin):
+    pass
+
+
+class BedAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(ReanimationService, ReanimationServiceAdmin)
+admin.site.register(UnitStay, UnitStayAdmin)
+admin.site.register(Unit, UnitAdmin)
+admin.site.register(Bed, BedAdmin)

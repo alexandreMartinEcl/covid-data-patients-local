@@ -20,15 +20,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from rest_framework import viewsets, generics
 from rest_framework.decorators import api_view, permission_classes
-from users.models import Hospital, get_sentinel_hospital
-from users.serializers import HospitalSerializer
-from users.permissions import MedLogPolPermission
+from users.models import Hospital, get_sentinel_hospital, UserProfile
+from users.serializers import HospitalSerializer, UserProfileSerializer
+from users.permissions import MedLogPolPermission, AuthenticatedAndSafeOrOwnerModification
 from server import paginations
 from rest_framework.response import Response
-from rest_framework import status
+
+
+class UserProfileViewset(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [AuthenticatedAndSafeOrOwnerModification]
+    pagination_classes = paginations.StandardResultsSetPagination
+
+    def get_serializer_context(self):
+        return {'request': self.request}
+
+    def partial_update(self, request, pk=None):
+        user = self.get_object()
+        # print(request.data.dict())
+        serializer = self.serializer_class(user, data=request.data, partial=True)  #, context={'request_data': request.data})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 class HospitalView(generics.ListAPIView):

@@ -20,37 +20,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from django.forms import ModelForm
-from patients.models import Patient, Ventilation
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from beds import views
 
+app_name = "patients"
 
-class PatientForm(ModelForm):
-    class Meta:
-        model = Patient
-        # fields = "__all__"
-        exclude = ['hospital']
-        labels = {
-            'age': ('Age'),
-        }
-        help_texts = {
-            'age': ('En années.'),
-        }
-        # error_messages = {
-        #     'name': {
-        #         'max_length': ("This writer's name is too long."),
-        #     },
-        # }
+router = DefaultRouter()
+router.register(r'reas', views.ReanimationServiceViewset, basename="reanimation_services")
+router.register(r'stays', views.UnitStayViewSet, basename="unit_stays")
 
-    def validate(self, data):
-        validated_data = super(PatientForm).validate(data)
-        validated_data['inclusion_code'] = Patient.hash(
-            validated_data['inclusion_code'])
-        validated_data['inclusion_nb'] = Patient.hash(
-            validated_data['inclusion_nb'])
-        return validated_data
-
-
-class VentilationForm(ModelForm):
-    class Meta:
-        model = Ventilation
-        fields = "__all__"
+urlpatterns = [
+    path('', include(router.urls)),
+]

@@ -46,7 +46,7 @@ SOFTWARE.
     color: var(--white);
     text-align: center;
     font-family: var(--plainfont);
-    padding-top: 10px;
+    padding-top: 1px;
     padding-bottom: 10px;
 }
 
@@ -98,6 +98,13 @@ SOFTWARE.
     font-family: var(--titlefont);
     font-size: 60px;
     padding-left: 5px;
+}
+
+.site-subbrand {
+    font-family: var(--subtitlefont);
+    font-size: 35px;
+    padding-left: 15px;
+    padding-top: 15px;
 }
 
 .site-title {

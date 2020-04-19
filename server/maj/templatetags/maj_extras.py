@@ -26,7 +26,7 @@ from maj.models import MAJ
 register = template.Library()
 
 
-@register.simple_tag
+# @register.simple_tag
 def last_maj(number: int = 10):
     nb = int(number)
     majs = MAJ.objects.all().order_by("-date")[:nb]

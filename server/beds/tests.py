@@ -1,4 +1,4 @@
-<!--
+"""
 Copyright (c) 2020 Magic LEMP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,30 +18,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
--->
+"""
 
+from django.test import TestCase
 
-{% extends "web/base.html" %}
-{% load bootstrap4 %}
-{% load i18n %} 
-{%load static%}
-{% block links%}
-<link href="{% static 'web/css/main.'|add:link.main|add:'.chunk.css'%}" rel="stylesheet">
-<link href="{% static 'web/css/2.'|add:link.2|add:'.chunk.css'%}" rel="stylesheet">
-{% endblock %}
-
-{% csrf_token %}
-
-{% block content %}
-
-<div class="container">
-
-    <h2 class="body-title" style="margin-top:20px;"> {% trans "Ressources des établissements au niveau national" %}</h2>
-    <p> {% trans "Visualiser ou exporter dans un tableur, l'état des ressources humaines, matérielles ou le nombre de lits des établissements"%}</p>
-
-</div>
-<div id="root" class="container-fluid"></div>
-{% include "web/noscript.html" %}
-<script src="{% static 'web/js/hospital.chunk.js' %}"></script>
-{% include "web/chunk.html" %}
-{% endblock %}
+# Create your tests here.

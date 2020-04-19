@@ -1,0 +1,13 @@
+.idea/
+*.pyc
+db.sqlite3
+
+server/.env
+
+venv/
+
+server/web/templates/beds_frontend/*
+
+
+server/output.sql
+

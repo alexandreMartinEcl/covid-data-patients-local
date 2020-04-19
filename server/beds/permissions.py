@@ -21,11 +21,11 @@ SOFTWARE.
 """
 
 from rest_framework import permissions
-from users.models import get_user_profile
+from users.models import get_user_hospital, get_user_profile, is_valid_hospital
 
 
 class AuthenticatedAndSafeOrOwnerModification(permissions.BasePermission):
-    message = 'Adding patients not allowed.'
+    message = 'Adding reas not allowed.'
 
     def has_permission(self, request, view):
         """Check the user can used these method
@@ -38,13 +38,8 @@ class AuthenticatedAndSafeOrOwnerModification(permissions.BasePermission):
         :returns: [description]
         :rtype: {[type]}
         """
-        if request.method in permissions.SAFE_METHODS + ("POST",
-                                                         "PUT", "PATCH"):
+        if request.method in permissions.SAFE_METHODS:
             if request.user.is_authenticated:
-                # hospital = get_user_hospital(request.user)
-                # profile = get_user_profile(request.user)
-                # if is_valid_hospital(hospital) and profile.is_medical:
-                #     return True
                 return True
         return False
 
@@ -57,41 +52,21 @@ class AuthenticatedAndSafeOrOwnerModification(permissions.BasePermission):
         """
         # Read permissions are allowed to any request,
         # so we'll always allow GET, HEAD or OPTIONS requests.
-
-        if request.method in permissions.SAFE_METHODS:
-            if request.user.is_authenticated:
-                # hospital = get_user_hospital(request.user)
-                # profile = get_user_profile(request.user)
-                # if is_valid_hospital(hospital) and profile.is_medical:
-                #     return True
-                return True
-
-        elif request.method in ["PUT", "PATCH"]:
-            if request.user.is_authenticated:
-                user = get_user_profile(request.user)
-                if obj.current_unit_stay is not None:
-                    return obj.current_unit_stay.bed.unit.reanimation_service in user.authorized_reanimation_services.all()
-                # hospital = get_user_hospital(request.user)
-                # profile = get_user_profile(request.user)
-                # if is_valid_hospital(hospital) and profile.is_medical:
-                #     return obj.hospital == hospital
-
         return False
 
 
-class AuthenticatedAndSafeOrOwnerModificationAttribute(permissions.BasePermission):
-    message = 'Adding status measure not allowed.'
-    # message = 'Vous devez être assigné à un service de réanimation où le patient demandé à séjourné. ' \
-    #           'Pensez à fournir le patient_id en paramètre'
+class AuthenticatedAndSafeOrOwnerModificationAttribute(
+        permissions.BasePermission):
+    message = 'Adding ventilation not allowed.'
 
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS + ("POST",
                                                          "PUT", "PATCH"):
             if request.user.is_authenticated:
-                return True
                 # hospital = get_user_hospital(request.user)
                 # if hospital is not None:
                 #     return True
+                return True
         return False
 
     def has_object_permission(self, request, view, obj):
@@ -102,19 +77,19 @@ class AuthenticatedAndSafeOrOwnerModificationAttribute(permissions.BasePermissio
                 # hospital = get_user_hospital(request.user)
                 # profile = get_user_profile(request.user)
                 # if is_valid_hospital(hospital) and profile.is_medical:
-                #     return obj.patient.hospital == hospital
-                user = get_user_profile(self.request.user)
-                return obj.patient.current_unit_stay.bed.unit.reanimation_service in \
+                #     return True
+                user = get_user_profile(request.user)
+                return obj.bed.unit.reanimation_service in \
                        user.authorized_reanimation_services.all()
 
         elif request.method in ["PUT", "PATCH"]:
-            if request.user.is_authenticated:
-                # hospital = get_user_hospital(request.user)
-                # profile = get_user_profile(request.user)
-                # if is_valid_hospital(hospital) and profile.is_medical:
-                #     return obj.patient.hospital == hospital
-                user = get_user_profile(self.request.user)
-                return obj.patient.current_unit_stay.bed.unit.reanimation_service in \
+            # if request.user.is_authenticated:
+            #     hospital = get_user_hospital(request.user)
+            #     profile = get_user_profile(request.user)
+            #     if is_valid_hospital(hospital) and profile.is_medical:
+            #         return obj.patient.hospital == hospital
+                user = get_user_profile(request.user)
+                return obj.bed.unit.reanimation_service in \
                        user.authorized_reanimation_services.all()
 
         return False
