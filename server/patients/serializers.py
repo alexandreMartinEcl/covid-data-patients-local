@@ -122,6 +122,7 @@ class PatientSerializer(serializers.ModelSerializer):
         todo_list = validated_data.pop("todo_list", None)
         recent_disease_history = validated_data.pop("recent_disease_history", None)
         evolution = validated_data.pop("evolution", None)
+        day_notice = validated_data.pop("day_notice", None)
 
         if todo_list:
             validated_data["todo_list"] = todo_list
@@ -134,6 +135,10 @@ class PatientSerializer(serializers.ModelSerializer):
         if evolution:
             validated_data["evolution"] = evolution
             validated_data["last_edited_evolution"] = timezone.now()
+
+        if day_notice:
+            validated_data["day_notice"] = day_notice
+            validated_data["last_edited_day_notice"] = timezone.now()
 
         return super(PatientSerializer, self).update(instance, validated_data)
 
