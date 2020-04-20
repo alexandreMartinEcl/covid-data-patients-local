@@ -38,6 +38,10 @@ SOFTWARE.
     width: 100%;
 }
 
+.bg-patients {
+    background-color: #9DB5DD;
+}
+
 .body-title {
     font-family: var(--titlefont);
 }

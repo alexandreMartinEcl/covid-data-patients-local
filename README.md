@@ -20,13 +20,14 @@ Téléchargez dans un dossier les deux Git repository correspondant au Frontend 
 
 Entrez dans le dossier frontend et installez les librairies. (Installez npm si besoin)
 
-
 ```
 cd coviddata-front-patients
 npm install
 ```
 
-Pensez à vérifier le fichier _.env_ pour modifier _REACT_APP_IS_DEV sur 0 pour le build.
+Pensez à vérifier le fichier _.env_ pour modifier \_REACT_APP_IS_DEV sur 0 pour le build.
+
+Pensez aussi à vérifier le champs _baseURL_ dans src/config.js
 
 Lancez la construction static de l'application web, et copiez-collez le dossier `build` dans le
 backend à `server/web/templates/beds_frontend/`
@@ -80,6 +81,10 @@ Une fois le serveur lancé, allez à l'url `.../admin`, connectez vous comme sup
 
 Entrez dans le dossier frontend, mettez à jour la branche, installez les librairies, générez le build et copiez collez le où nécessaire
 
+Pensez à vérifier le fichier _.env_ pour modifier \_REACT_APP_IS_DEV sur 0 pour le build.
+
+Pensez aussi à vérifier le champs _baseURL_ dans src/config.js
+
 ```
 cd coviddata-front-patients
 git pull
@@ -107,6 +112,7 @@ python manage.py migrate
 ```
 
 Si une erreur se présente pendant les migrations et vous souhaitez relancer la base de données entièrement (**attention, on parle d'effacer toutes les données existantes!**):
+
 - lancez _postgresql_: `sudo -u postgres psql`
 - ouvrez la base de données avec le nom défini dans votre fichier _.env_: `\c db_name`
 - listez les tables présentes: `\dt`
@@ -128,6 +134,7 @@ Lancez `npm run format` pour adapter le code aux critères de format.
 #### Backend
 
 Pour chaque dossier de migration, revenez à la dernière version mise en ligne:
+
 ```
 rm users/migrations/*
 git checkout HEAD -- users/migrations
@@ -136,7 +143,7 @@ etc.
 
 Ensuite seulement, lancez makemigrations pour obtenir les migrations définitives à commit
 
-```python manage.py makemigrations```
+`python manage.py makemigrations`
 
 ### Autres
 

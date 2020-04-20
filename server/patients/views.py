@@ -52,6 +52,13 @@ class PatientViewset(viewsets.ModelViewSet):
             patients = patients.filter(inclusion_nb=code)
         return patients
 
+    def create(self, request, *args, **kwargs):
+        if Patient.objects.filter(NIP_id=request.data.get("NIP_id")).first():
+            headers = self.default_response_headers
+            return Response(dict(msg="Patient NIP already exists"), status=status.HTTP_409_CONFLICT, headers=headers)
+        else:
+            return super(PatientViewset, self).create(request, *args, **kwargs)
+
     def get_serializer_context(self):
         return {'request': self.request}
 

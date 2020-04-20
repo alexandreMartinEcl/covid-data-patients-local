@@ -49,7 +49,7 @@ class IDServer:
         tokens = resp.json()
         attributes = tokens["data"]["attributes"]
         user_info = dict(
-            username=attributes["sAMAAccountName"],
+            username=attributes["sAMAccountName"],
             email=attributes["mail"],
             firstname=attributes["givenName"],
             lastname=attributes["sn"],
