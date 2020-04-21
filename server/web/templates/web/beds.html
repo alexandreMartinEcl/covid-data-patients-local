@@ -25,16 +25,10 @@ SOFTWARE.
 
 {%load static %}
 {% block links%}
-<link href="{% static 'css/main.'|add:link.main|add:'.chunk.css'%}" rel="stylesheet">
-<link href="{% static 'css/2.'|add:link.2|add:'.chunk.css'%}" rel="stylesheet">
 {% endblock %}
 
 {% csrf_token %}
 
 {% block content %}
 {% include "beds_frontend/build/index.html" %}
-<div id="root" class="container-fluid"></div>
-{% include "web/noscript.html" %}
-<script src="{% static 'web/js/patient.chunk.js' %}"></script>
-{% include "web/chunk.html" %}
 {% endblock %}
