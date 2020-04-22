@@ -54,7 +54,7 @@ class Patient(models.Model):
     weight_kg.minmax = (0, 150)
 
     # For Lariboisiere
-    NIP_id = models.CharField(max_length=7, unique=True, blank=False, null=False)
+    NIP_id = models.CharField(max_length=10, unique=True, blank=False, null=False)
     first_name = models.CharField(max_length=100, blank=True, null=True)
     family_name = models.CharField(max_length=100, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
@@ -71,8 +71,8 @@ class Patient(models.Model):
 
     hospitalisation_cause = models.TextField(blank=True, null=True)
 
-    antecedents = models.TextField(blank=True, null=True, default='{"NonIndique": ""}', help_text='json {"Cardio": "note"}̀')
-    allergies = models.TextField(blank=True, null=True, default='["Non indiqué"]', help_text='["pollen"]')
+    antecedents = models.TextField(blank=True, null=True, default='{"Inconnus": ""}', help_text='json {"Cardio": "note"}̀')
+    allergies = models.TextField(blank=True, null=True, default='["Inconnues"]', help_text='["pollen"]')
     severity = models.IntegerField(choices=[(0, 'A risque'), (1, 'Instable'), (2, 'Stable')], default=2)
 
     recent_disease_history = models.TextField(blank=True, null=False, default='')

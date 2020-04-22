@@ -8,6 +8,6 @@ venv/
 
 server/web/templates/beds_frontend/*
 
-
+server/static
 server/output.sql
 
