@@ -84,6 +84,9 @@ class Patient(models.Model):
     todo_list = models.TextField(default="", null=True, blank=True)
     last_edited_todo_list = models.DateTimeField(default=None, null=True, blank=True)
 
+    treatment_limitations = models.TextField(default="", null=True, blank=True)
+    last_edited_treatment_limitations = models.DateTimeField(default=None, null=True, blank=True)
+
     day_notice = models.TextField(default="", null=True, blank=True)
     last_edited_day_notice = models.DateTimeField(default=None, null=True, blank=True)
 
@@ -93,6 +96,7 @@ class Patient(models.Model):
     lung_failure = models.BooleanField(default=False)
     kidney_failure = models.BooleanField(default=False)
     liver_failure = models.BooleanField(default=False)
+    hematologic_failure = models.BooleanField(default=False)
 
     # format de antecedents: [str]
     def set_antecedents(self, array_input=None):
@@ -421,6 +425,14 @@ class StatusMeasure(models.Model):
         (9, "Curares"),
         (10, "Lactatémie"),
         (11, "Epuration extrarénale"),
+        (12, "Taux de prothrombine"),
+        (13, "Adrénaline"),
+        (14, "Dobutamine"),
+        (15, "Plaquettes"),
+        (16, "Glasgow"),
+        (17, "Débit de dioxygène inspiré"),
+        (18, "Fraction de dioxygène inspirée"),
+        (19, "Pression artérielle"),
     ], blank=False, null=False)
     value = models.TextField(blank=True)
     created_date = models.DateField(default=timezone.now, blank=False, null=False)

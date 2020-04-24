@@ -120,6 +120,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         todo_list = validated_data.pop("todo_list", None)
+        treatment_limitations = validated_data.pop("treatment_limitations", None)
         recent_disease_history = validated_data.pop("recent_disease_history", None)
         evolution = validated_data.pop("evolution", None)
         day_notice = validated_data.pop("day_notice", None)
@@ -135,6 +136,10 @@ class PatientSerializer(serializers.ModelSerializer):
         if evolution:
             validated_data["evolution"] = evolution
             validated_data["last_edited_evolution"] = timezone.now()
+
+        if treatment_limitations:
+            validated_data["treatment_limitations"] = treatment_limitations
+            validated_data["last_edited_treatment_limitations"] = timezone.now()
 
         if day_notice:
             validated_data["day_notice"] = day_notice
