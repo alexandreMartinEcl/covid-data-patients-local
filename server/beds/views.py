@@ -62,6 +62,18 @@ class ReanimationServiceViewset(viewsets.ModelViewSet):
     def get_serializer_context(self):
         return {'request': self.request}
 
+    def partial_update(self, request, pk=None):
+        action = request.data.get("action", None)
+        if action == "remove":
+            rea = self.get_object()
+            user = get_user_profile(self.request.user)
+            user.authorized_reanimation_services.remove(rea)
+            user.save()
+            headers = self.default_response_headers
+            return Response(dict(removed=rea.id), headers=headers)
+        headers = self.default_response_headers
+        return Response(dict(action="Action not found or unknown"), status=status.HTTP_404_NOT_FOUND, headers=headers)
+
 
 class UnitStayViewSet(viewsets.ModelViewSet):
     serializer_class = UnitStaySerializer

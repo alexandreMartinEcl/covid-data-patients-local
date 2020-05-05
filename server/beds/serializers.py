@@ -33,6 +33,7 @@ from patients.serializers import PatientSerializer, BasicInfoPatientSerializer
 class UnitStaySerializer(serializers.ModelSerializer):
     patient = BasicInfoPatientSerializer()
     id_bed = serializers.CharField(write_only=True)
+    swap = serializers.BooleanField(write_only=True)
     terminate = serializers.BooleanField(write_only=True)
     bed_description = serializers.CharField()
 
@@ -65,7 +66,16 @@ class UnitStaySerializer(serializers.ModelSerializer):
                                                       f"service ${new_bed_rea}. Vous n'avez pas les accès.")
 
                 if new_bed.current_stay:
-                    raise serializers.ValidationError(f"Le lit demandé (${new_bed_id}) est déjà occupé.")
+                    swaping = validated_data.pop("swap", None)
+                    if not swaping:
+                        raise serializers.ValidationError(f"Le lit demandé (${new_bed_id}) a été occupé entre temps, "
+                                                          f"rafraichissez la page.")
+                    other_stay = UnitStay.objects.filter(id=new_bed.current_stay.id).first()
+                    if other_stay is None:
+                        raise serializers.ValidationError(f"Erreur inconnue: le nouveau lit était occupé,"
+                                                          f"mais récupération du patient impossible")
+                    other_stay = super(UnitStaySerializer, self).update(other_stay, dict(bed=instance.bed))
+                    validated_data["bed"] = new_bed
 
                 if new_bed.is_unusable:
                     raise serializers.ValidationError(f"Le lit demandé (${new_bed_id}) n'est pas en état de service.")

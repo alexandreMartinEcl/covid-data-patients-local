@@ -22,6 +22,7 @@ SOFTWARE.
 
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
+from django.utils.datetime_safe import datetime
 from rest_framework import serializers
 
 from patients.models import Patient, Ventilation, StatusMeasure
@@ -87,6 +88,10 @@ class PatientSerializer(serializers.ModelSerializer):
             start_date = validated_data.pop("stay_start_date", None)
             validated_data.pop("stay_id", None)
 
+            if datetime.date(start_date) > datetime.now():
+                raise serializers.ValidationError(f"La date de début de séjour indiquée ({start_date}) "
+                                                  f"est supérieure à la date d'aujord'hui")
+
             patient = Patient(**validated_data)
 
             if bed_id:
@@ -145,6 +150,15 @@ class PatientSerializer(serializers.ModelSerializer):
             validated_data["day_notice"] = day_notice
             validated_data["last_edited_day_notice"] = timezone.now()
 
+        stay_start_date = validated_data.pop("stay_start_date", None)
+        if stay_start_date is not None:
+            if datetime.date(stay_start_date) > datetime.now():
+                raise serializers.ValidationError(f"La date de début de séjour indiquée ({stay_start_date}) "
+                                                      f"est supérieure à la date d'aujord'hui")
+            stay = UnitStay.objects.filter(id=instance.current_unit_stay.id).first()
+            stay.start_date = stay_start_date
+            stay.save()
+
         return super(PatientSerializer, self).update(instance, validated_data)
 
 
@@ -160,8 +174,8 @@ class BasicInfoPatientSerializer(PatientSerializer):
     class Meta:
         model = Patient
         # fields = "__all__"
-        exclude = ["detection_covid", "detection_orlEntree", "detection_ERentree", "detection_ERpremierMardi",
-                   "detection_ERsecondMardi", "antecedents", "allergies", "recent_disease_history", "evolution"]
+        exclude = ["detection_covid", "detection_orl_entree", "detection_ER_entree", "detections_ER_weekly",
+                   "detections_orl_weekly", "antecedents", "allergies", "recent_disease_history", "evolution"]
 
 
 class StatusMeasureSerializer(serializers.ModelSerializer):

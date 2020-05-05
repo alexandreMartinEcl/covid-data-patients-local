@@ -22,6 +22,7 @@ SOFTWARE.
 
 import json
 
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 import django.db.models.fields as fields
 from django.utils import timezone
@@ -64,10 +65,10 @@ class Patient(models.Model):
     sex = models.CharField(choices=[("H", "Homme"), ("F", "Femme")], blank=True, null=True, max_length=1)
 
     detection_covid = models.BooleanField(default=False)  # detection=dépistage
-    detection_orlEntree = models.BooleanField(default=False)
-    detection_ERentree = models.BooleanField(default=False)
-    detection_ERpremierMardi = models.BooleanField(default=False)
-    detection_ERsecondMardi = models.BooleanField(default=False)
+    detection_orl_entree = models.BooleanField(default=False)
+    detection_ER_entree = models.BooleanField(default=False)
+    detections_orl_weekly = ArrayField(models.BooleanField(), default=[])
+    detections_ER_weekly = ArrayField(models.BooleanField(), default=[])
 
     hospitalisation_cause = models.TextField(blank=True, null=True)
 
