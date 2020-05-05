@@ -139,3 +139,7 @@ SOFTWARE.
     font-size: 17px;
     margin-bottom: 5px;
 }
+
+.filter-svg-white {
+    filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(206deg) brightness(104%) contrast(101%);
+}
