@@ -130,6 +130,47 @@ class PatientSerializer(serializers.ModelSerializer):
         evolution = validated_data.pop("evolution", None)
         day_notice = validated_data.pop("day_notice", None)
 
+        lat_values = dict()
+        for field in [
+            "no_acr_reanimation",
+            "no_new_failures_or_therap_raise_treatment",
+            "no_catecholamines",
+            "no_intubation",
+            "no_assisted_ventilation",
+            "no_o2",
+            "no_eer",
+            "no_transfusion",
+            "no_surgery",
+            "no_PIC_or_DVE",
+            "no_new_antibiotherapy",
+            "no_sirurgical_reintervetion",
+            "no_new_complementary_exams",
+            "no_biological_results",
+            "pressor_amines_stop",
+            "eer_stop",
+            "fio2_21percent",
+            "oxygenotherapy_stop",
+            "mecanic_ventilation_stop",
+            "extubation",
+            "nutrition_stop",
+            "hydratation_stop",
+            "antibiotic_stop",
+            "dve_ablation",
+            "ecmo_stop",
+            "all_current_therapeutics_stop",
+            "other_stops",
+            "fio2_limit",
+            "no_mecanic_ventilation_markup",
+            "amines_limitation",
+            "no_reanimation_admittance",
+            "treatment_limitations_comments",
+        ]:
+            lat_values[field] = validated_data.pop(field, None)
+            if lat_values[field]:
+                validated_data[field] = lat_values[field]
+                validated_data["last_edited_treatment_limitations"] = timezone.now()
+                break
+
         if todo_list:
             validated_data["todo_list"] = todo_list
             validated_data["last_edited_todo_list"] = timezone.now()
